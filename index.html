@@ -1,53 +1,72 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
   </head>
-  <body style="font-family: 'Press Start 2P', 'Times New Roman', 'Courier New'; background-image: url(coffee_background.gif); background-size: cover;
-  color: rgb(255, 255, 255);">
-  
-    <div style="border: solid; width: fit-content; background-color: rgb(104, 53, 53);
-     position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); padding: 0%; flex-direction: column;"
-     id="window">
-      <div style="display: flex; flex-direction: row; width: 100%; height: 54px; background-color: rgb(65, 31, 31); padding: 0%;
-       cursor: grab; justify-content: space-between;"id="windowheader" user-select: none>
+  <body>
+
+    <div id="welcome" class="window">
+
+      <div id="welcomeheader" class="windowheader">
         <div >
           <p style="text-align: center;">Welcome to my OS</p>
         </div>
-        <div style="display: flex; background-color: red; cursor: pointer; height: 30px; width: 30px;"id="welcomeclose">
+        <div id="welcomeclose" class="close">
 
         </div>
       </div>
-      <div style="display: flex; flex-direction: row;">
-        <div style="display: flex; width: 600px; flex-direction: column; align-items: center;">
+
+      <div class="welcome">
+        <div class="inwelcome">
           <img src="./Tasty_Coffee.jpg" style="height: 240px; width: 240px; object-fit: cover;">
           <p style="font-weight: lighter;">I don't know why but my <i>friends</i> think I am addicted to coffee and caffeine <br>
             (I just like the taste of coffee <b>NOTHING MORE</b>)</p>
         </div>
-        <div style="display: flex; width: 600px; flex-direction: column; align-items: center;">
+        <div class="inwelcome">
           <a href="https://commons.wikimedia.org/wiki/File:Quantum_Fluctuations.gif" target="_blank"><img src="Quantum_Fluctuations.gif" style="height: 240px; width: 240px; object-fit: cover; border-radius: 50%;"></a>
-          <p style="font-weight: lighter;">I also like quantum physics but <br>
-            I am still learning so I know the general terms <br>
-            but it is still really hard to understand why <br>
-            everything works the way it does</p>
+          <p style="font-weight: lighter;">I also like quantum physics but I am still learning so I 
+            know the general terms but it is still really hard to understand why everything works the way it does</p>
         </div>
       </div>
       <div style="width: 1200px; text-align: center;">
-        <a href="https://quantumai.google/education/thequbitgame" target="_blank" style="color: rgb(122, 214, 122);">
+        <a href="https://quantumai.google/education/thequbitgame" target="_blank">
           This is the ONE and ONLY Q-bit game, which I adore!
         </a>
       </div>
     </div>
-    <div style="display: flex; justify-content: space-between; background-color: rgba(128, 128, 128, 0.25); position: absolute; bottom: 0%;
-    left: 0%; width: 100%; backdrop-filter: blur(20px); padding: 0%;">
-      <p style="padding-left: 12px; cursor: pointer;" id="welcomeopen" class="bottombar">Coffee OS</p>
-      <p class="bottombar">Text colour</p>
-      <p style="padding-right: 12px;" class="bottombar" id="time">
+
+    <div class="bottombar" id="bottom">
+      <p style="padding-left: 12px;" id="welcomeopen" class="bottombartxt">Coffee OS</p>
+      <p class="bottombartxt">Text colour</p>
+      <p style="padding-right: 12px; user-select: none" id="time">
         
       </p>
+    </div>
+
+    <div id="desktopApps">
+      <div class="app" id="coffeeThougtsOpen">
+        <img src="notes.png" alt="oops">
+        <p>Coffee thougts</p>
+      </div>
+
+    <div id="coffeeThoughts" class="window" style="display: none;">
+      <div id="coffeeThoughtsheader" class="windowheader">
+        <div>
+          <p style="text-align: center;">Coffee thougts</p>
+        </div>
+        <div id="coffeeThoughtsClose" class="close">
+
+        </div>
+      </div>
+
+      <div class="welcome">
+        <div class="inwelcome">
+          
+        </div>
+      </div>
+      
+    </div>
+      
     </div>
     <script src="script.js"></script>
   </body>

@@ -1,7 +1,89 @@
-
-.bottombar:hover{
+@import url('https://fonts.googleapis.com/css2?family=Mozilla+Text:wght@200..700&family=Press+Start+2P&display=swap');
+body{
+    font-family: 'Press Start 2P', 'Times New Roman', 'Courier New'; 
+    background-image: url(coffee_background.gif); 
+    background-size: cover;
+    color: rgb(255, 255, 255);
+}
+p{
+    font-family: "Mozilla Text";
+}
+a{
+    color: rgb(122, 214, 122);
+    font-family: "Mozilla Text"; 
+}
+a:hover{
+    color: rgba(122, 214, 122, 0.5);
+}
+.bottombartxt:hover{
     color: rgba(128, 128, 128, 0.5);
+    cursor: pointer;
+}
+.bottombar{
+    display: flex; 
+    justify-content: space-between; 
+    background-color: rgba(128, 128, 128, 0.25); 
+    position: absolute; bottom: 0%; left: 0%; 
+    width: 100%; 
+    backdrop-filter: blur(20px); 
+    padding: 0%;
 }
 div{
     padding: 12px;
+}
+.windowheader{
+    display: flex; flex-direction: row; 
+    width: 100%; height: 60px;
+    background-color: rgb(65, 31, 31); 
+    padding: 0%;
+    cursor: grab; 
+    justify-content: space-between;
+    user-select: none;
+    font-size: 20px;
+    font-weight: 600;
+}
+.window{
+    border: solid;
+    width: fit-content; 
+    background-color: rgb(104, 53, 53);
+    position: absolute; 
+    top: 50%; left: 50%; transform: translate(-50%,-50%); 
+    padding: 0%; 
+    display: flex;
+    flex-direction: column;
+}
+.close{
+    display: flex; 
+    background-color: rgb(119, 119, 119); 
+    cursor: pointer; 
+    height: 100%; width: 5%;
+    padding: 0%;
+}
+.close:hover{
+    background-color: red;
+}
+.welcome{
+    display: flex; 
+    flex-direction: row;
+}
+.inwelcome{
+    display: flex; flex-direction: column;
+    width: 600px;  
+    align-items: center;
+}
+#desktopApps{
+    display: flex;
+}
+.app{
+    display: flex; flex-direction: column;
+    padding: 16px;
+    align-items: center;
+    text-align: center;
+    filter: drop-shadow(0 0 8px rgb(32, 24, 24));
+}
+.app img{
+    width: 64px; height: 64px;
+}
+.chosen{
+    background-color: red;
 }
