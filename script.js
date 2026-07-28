@@ -82,7 +82,7 @@ var coffeeScreen = document.querySelector("#coffeeThoughts")
 var coffeeScreenClose = document.querySelector("#coffeeThoughtsClose")
 var coffeeScreenOpen = document.querySelector("#coffeeThougtsOpen")
 coffeeScreenClose.addEventListener("click", () => closeWindow(coffeeScreen));
-coffeeScreenOpen.addEventListener("click", () => openWindow(coffeeScreen));
+
 
 
 var chosenIcon = undefined
@@ -96,11 +96,18 @@ function deselectIcon(element) {
 }
 function handleIconTap(element) {
   if (element.classList.contains("chosen")) {
-    deselect(element)
-    openWindow(window)
+    deselectIcon(element)
+    openWindow(coffeeScreen)
   } else {
     selectIcon(element)
   }
+}
+
+function handleNoteTap(element) {
+   if (chosenIcon) {
+    deselectIcon(chosenIcon)
+   }
+   selectIcon(element)
 }
 
 
@@ -143,4 +150,60 @@ function initializeWindow(elementName) {
   addWindowTapHandling(screen)
   makeClosable(elementName)
   dragElement(screen)
+}
+
+
+var content = [
+  {
+    title: "First cup of coffee",
+    date: "07/28/2026",
+    content: `
+            <h2 contenteditable="True">
+              These are my coffee <strong>thoughts</strong>:
+            </h2>
+            <br> 
+            <p contenteditable="True">
+              Espresso is the basis of almost all popular coffees, the same can be said about math, 
+              because many sciences have come from it and are dependent on it, that is why drinking coffee 
+              is almost certain to make you closer to math
+            </p>   
+            `  
+  },
+  {
+    title: "Second cup of coffee",
+    date: "07/28/2026",
+    content:`
+            <p contenteditable="True">
+              You can write your coffee thoughts and mask them as mine
+            </p> 
+    `
+  }
+]
+
+function setNotesContent(index) {
+  var notesContent = document.querySelector("#notesContent")
+  notesContent.innerHTML = content[index].content
+}
+setNotesContent(0)
+function addToSideBar(index) {
+  var sidebar = document.querySelector("#sidebar")
+  var note = content[index]
+  var newDiv = document.createElement("div")
+  newDiv.className = "sidebar"
+  newDiv.innerHTML = `
+    <p style="margin: 0px;">
+      ${note.title}
+    </p>
+    <p style="font-size: 12px; margin: 0px;">
+      ${note.date}
+    </p>
+  `;
+  newDiv.addEventListener("click", function() {
+    setNotesContent(index);
+    handleNoteTap(this)
+  });
+  sidebar.appendChild(newDiv)
+}
+for (let i = 0; i < content.length; i++) {
+  addToSideBar(i)
 }
