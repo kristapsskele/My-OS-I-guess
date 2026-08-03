@@ -5,9 +5,6 @@ setInterval(function(){
 
 
 
-      // Make the DIV element draggable:
-dragElement(document.getElementById("welcome"));
-dragElement(document.querySelector("#coffeeThoughts"))
 
 // Step 1: Define a function called `dragElement` that makes an HTML element draggable.
 function dragElement(element) {
@@ -37,11 +34,11 @@ function dragElement(element) {
     initialY = e.clientY;
     // Step 8: Set up event listeners for mouse movement (`elementDrag`) and mouse button release (`closeDragElement`).
     document.onmouseup = stopDragging;
-    document.onmousemove = dragElement;
+    document.onmousemove = elementDrag;
   }
 
   // Step 9: Define the `elementDrag` function to calculate the new position of the element based on mouse movement.
-  function dragElement(e) {
+  function elementDrag(e) {
     e = e || window.event;
     e.preventDefault();
     // Step 10: Calculate the new cursor position.
@@ -61,28 +58,27 @@ function dragElement(element) {
   }
 }
 
-var welcomeScreen = document.querySelector("#welcome")
-var welcomeScreenClose = document.querySelector("#welcomeclose")
-var welcomeScreenOpen = document.querySelector("#welcomeopen")
+var welcomeIcon = document.querySelector("#welcomeopen")
+var welcome = document.querySelector("#welcome")
+welcomeIcon.addEventListener("click", () => {openWindow(welcome);});
 
-welcomeScreenClose.addEventListener("click", function() {
-  closeWindow(welcomeScreen);
-});
-welcomeScreenOpen.addEventListener("click", function() {
-  openWindow(welcomeScreen);
-});
+function makeClosable(elementName){
+  var screen = document.querySelector("#" + elementName)
+  var screenClose = document.querySelector("#" + elementName + "Close")
+  if (screenClose) {
+    screenClose.addEventListener("click", function() {closeWindow(screen);});
+  }
+}
+
 function closeWindow(element) {
     element.style.display = "none"
 }
 function openWindow(element) {
-    element.style.display = "flex"
+  element.style.display = "flex";
+  biggestIndex++;
+  element.style.zIndex = biggestIndex;
+  bottomBar.style.zIndex = biggestIndex + 1;
 }
-
-var coffeeScreen = document.querySelector("#coffeeThoughts")
-var coffeeScreenClose = document.querySelector("#coffeeThoughtsClose")
-var coffeeScreenOpen = document.querySelector("#coffeeThougtsOpen")
-coffeeScreenClose.addEventListener("click", () => closeWindow(coffeeScreen));
-
 
 
 var chosenIcon = undefined
@@ -91,15 +87,33 @@ function selectIcon(element) {
   chosenIcon = element
 }
 function deselectIcon(element) {
+  if (!element) return;
+
   element.classList.remove("chosen");
   chosenIcon = undefined
 }
-function handleIconTap(element) {
+function handleIconTap(element, screen) {
   if (element.classList.contains("chosen")) {
     deselectIcon(element)
-    openWindow(coffeeScreen)
+    openWindow(screen)
   } else {
     selectIcon(element)
+  }
+}
+function initializeIcon(name) {
+  var icon = document.querySelector("#" + name + "Icon")
+  var screen = document.querySelector("#" + name)
+  icon.addEventListener("click", () => handleIconTap(icon, screen));
+}
+
+
+function initializeWindow(elementName){
+  var screen = document.querySelector("#" + elementName)
+  addWindowTapHandling(screen)
+  dragElement(screen)
+  makeClosable(elementName)
+  if(elementName != "welcome") {
+    initializeIcon(elementName)
   }
 }
 
@@ -112,8 +126,8 @@ function handleNoteTap(element) {
 
 
 var biggestIndex = 1;
-addWindowTapHandling(welcomeScreen);
-addWindowTapHandling(coffeeScreen);
+addWindowTapHandling(welcome);
+addWindowTapHandling(notes);
 function addWindowTapHandling(element) {
   element.addEventListener("mousedown", () =>
     handleWindowTap(element)
@@ -123,35 +137,16 @@ function handleWindowTap(element) {
   biggestIndex++;
   element.style.zIndex = biggestIndex;
 }
-function openWindow(element) {
-  element.style.display = "flex";
-  biggestIndex++;
-  element.style.zIndex = biggestIndex;
-}
 
 
 var bottomBar = document.querySelector("#bottom")
-function openWindow(element) {
-  element.style.display = "flex";
-  biggestIndex++;
-  element.style.zIndex = biggestIndex;
-  bottomBar.style.zIndex = biggestIndex + 1;
-}
+
 function handleWindowTap(element) {
   biggestIndex++;
   element.style.zIndex = biggestIndex;
   bottomBar.style.zIndex = biggestIndex + 1;
   deselectIcon(chosenIcon)
 }
-
-// I have to later (when I understand more) implement this thingy 
-function initializeWindow(elementName) {
-  var screen = document.querySelector("#" + elementName)
-  addWindowTapHandling(screen)
-  makeClosable(elementName)
-  dragElement(screen)
-}
-
 
 var content = [
   {
@@ -191,10 +186,10 @@ function addToSideBar(index) {
   var newDiv = document.createElement("div")
   newDiv.className = "sidebar"
   newDiv.innerHTML = `
-    <p style="margin: 0px;">
+    <p style="margin: 0px; padding: 12px">
       ${note.title}
     </p>
-    <p style="font-size: 12px; margin: 0px;">
+    <p style="font-size: 12px; margin: 0px; padding: 12px;">
       ${note.date}
     </p>
   `;
@@ -207,3 +202,51 @@ function addToSideBar(index) {
 for (let i = 0; i < content.length; i++) {
   addToSideBar(i)
 }
+
+var beans = 100
+var rolls = 0
+function slotMachinePrize() {
+  var a = slotMachine()
+  var b = slotMachine()
+  var x = slotMachineX()
+  if (beans<10){
+    return
+  }
+  document.getElementById("slotA").innerText = a
+  document.getElementById("slotB").innerText = b
+  document.getElementById("slotX").innerText = x
+  document.getElementById("prize").innerText = "Prize: |"+a+"|"+b+"| x"+x+" = "+(a===b? (2**(a-1))*x:0)
+
+  if (a === b){
+    return (2**(a-1))*x
+  }
+  else{
+    return 0
+  }
+}
+function slotMachine(){
+  return Math.floor(Math.random()*7)+1
+}
+function slotMachineX(){
+  return Math.floor(Math.random()*10)+1
+}
+function play(){
+  var prize = slotMachinePrize()
+  if (beans<10){
+    alert('Not enough beans :(')
+    return
+  }
+  beans -=10
+  if (prize > 0){
+    beans += prize
+  }
+  rolls++
+  document.getElementById("beans").innerText = "Coffee beans: " + beans
+  document.getElementById("rolls").innerText = "Rolls: " + rolls
+  return beans
+}
+
+
+initializeWindow("welcome")
+initializeWindow("notes")
+initializeWindow("slotMachine")

@@ -8,15 +8,15 @@
     <div id="welcome" class="window">
 
       <div id="welcomeheader" class="windowheader">
-        <div >
-          <p style="text-align: center;">Welcome to my OS</p>
+        <div id="welcomeIcon">
+          <p style="text-align: center; padding-left: 12px;">Welcome to my OS</p>
         </div>
-        <div id="welcomeclose" class="close">
+        <div id="welcomeClose" class="close">
 
         </div>
       </div>
 
-      <div class="welcome">
+      <div class="welcome" style="padding: 12px;">
         <div class="inwelcome">
           <img src="./Tasty_Coffee.jpg" style="height: 240px; width: 240px; object-fit: cover;">
           <p style="font-weight: lighter;">I don't know why but my <i>friends</i> think I am addicted to coffee and caffeine <br>
@@ -35,40 +35,94 @@
       </div>
     </div>
 
-    <div class="bottombar" id="bottom">
-      <p style="padding-left: 12px;" id="welcomeopen" class="bottombartxt">Coffee OS</p>
-      <p class="bottombartxt">Text colour</p>
-      <p style="padding-right: 12px; user-select: none" id="time">
-        
-      </p>
-    </div>
-
-    <div id="desktopApps">
-      <div class="app" id="coffeeThougtsOpen" onclick="handleIconTap(this)">
+    <div class="desktopApps">
+      <div class="app" id="notesIcon">
         <img src="notes.png" alt="oops">
         <p>Coffee thougts</p>
       </div>
 
-    <div id="coffeeThoughts" class="window" style="display: none;">
-      <div id="coffeeThoughtsheader" class="windowheader">
-        <div>
-          <p style="text-align: center;">Coffee thougts</p>
-        </div>
-        <div id="coffeeThoughtsClose" class="close">
+      <div id="notes" class="window">
+        <div id="notesheader" class="windowheader">
+          <div>
+            <p style="text-align: center; padding-left: 12px;">Coffee thougts</p>
+          </div>
+          <div id="notesClose" class="close">
 
+          </div>
         </div>
-      </div>
 
-      <div class="welcome">
-        <div class="inwelcome" id="notesContent" >
-          
+        <div class="welcome" style="width: 600px; padding: 12px;">
+          <div class="inwelcome" id="notesContent" >
+            
+          </div>
+          <div id="sidebar"></div>
         </div>
-        <div id="sidebar"></div>
+        
       </div>
       
     </div>
+
+    <div class="desktopApps">
+      <div class="app" id="slotMachineIcon">
+        <img src="SlotMachine.png" alt="oops">
+        <p>Coffee bean slot machine</p>
+      </div>
+
       
+      <div id="slotMachine" class="window">
+        <div id="slotMachineheader" class="windowheader">
+          <div style="padding-left: 12px;"><p>Coffee bean slot machine</p></div>
+          <div id="slotMachineClose" class="close">
+
+          </div>
+        </div>
+        <div class="welcome" style="width: 400px; flex-direction: column; padding-left: 12px;">
+          <div class="inwelcome" style="flex-direction: row;">
+            <div class="slotTop" style="text-align: left;"><p id="beans">Coffee beans: 100</p></div>
+            <div class="slotTop" style="text-align: right;"><p id="rolls">Rolls: 0</p></div>
+          </div>
+          <div class="slotMiddle">
+            <div style="width: 300px;">
+              <div class="slotRng">
+                <div class="slotNumber"><h1 id="slotA">-</h1></div>
+                <div class="slotNumber"><h1 id="slotB">-</h1></div>
+                <div class="multi"><h1>X</h1></div>
+                <div class="multi"><h1 id="slotX">-</h1></div>
+              </div>
+              <div class="prize">
+                <h2 id="prize">
+                  Prize: -
+                </h2>
+              </div>
+              <div class="playButton" onclick="play()"><h2 style="margin-left: 24px;">-10 Beans</h2></div>
+            </div>
+            <div class="combos">
+              <p>1|1 -> 1</p>
+              <p>2|2 -> 2</p>
+              <p>3|3 -> 4</p>
+              <p>4|4 -> 8</p>
+              <p>5|5 -> 16</p>
+              <p>6|6 -> 32</p>
+              <p>7|7 -> 64</p>
+              <p>x -> 1-10</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+
+
+
+
+
+
+    <div class="bottombar" id="bottom">
+      <p style="padding-left: 12px;" id="welcomeopen" class="bottombartxt">Coffee OS</p>
+      <p style="padding-right: 12px; user-select: none" id="time">
+        
+      </p>
+    </div>
+    
     <script src="script.js"></script>
   </body>
 
