@@ -61,9 +61,12 @@ a:hover{
     cursor: pointer; 
     height: 60px; width: 60px;
     padding: 0%;
+    justify-content: center;
+    color: darkgrey;
 }
 .close:hover{
     background-color: red;
+    color: snow;
 }
 .welcome{
     display: flex; 
@@ -144,4 +147,17 @@ div.slotTop{
     background-color: rgba(128, 128, 128, 0.5);
     color: rgb(194, 166, 166);
     cursor: pointer;
+}
+.map{
+    width: 500px;
+    height: 500px;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+}
+.map iframe{
+    position: absolute;
+    width: calc(100% + 120px); 
+    height: calc(100% + 180px);
+    left: -45px;
 }

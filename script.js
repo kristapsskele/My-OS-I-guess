@@ -250,3 +250,4 @@ function play(){
 initializeWindow("welcome")
 initializeWindow("notes")
 initializeWindow("slotMachine")
+initializeWindow("map")
