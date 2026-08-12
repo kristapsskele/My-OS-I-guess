@@ -161,3 +161,50 @@ div.slotTop{
     height: calc(100% + 180px);
     left: -45px;
 }
+.clickerTop{
+    width: 180px;
+}
+.clickerMiddle{
+    display: flex;
+    flex-direction: row;
+    width: 600px;
+    height: 350px;
+}
+.bigbean{
+    height: 100%;
+    width: 200px;
+    font-family: "Mozilla Text";
+    font-size: 20px;
+}
+.upgrades{
+    width: 400px;
+    padding-right: 20px;
+    padding-left: 6px;
+}
+.upgrades h2{
+    margin: 0%;
+}
+#upgrades{
+    width: 397px;
+    height: 50px;
+    background-color: rgb(104, 53, 53);
+}
+.upgrade{
+    border: 2px solid snow;
+    width: 397px;
+    height: 50px;
+}
+#theBean{
+    display: flex;
+    justify-content: center;
+}
+#theBean img{
+    width: 150px;
+    height: 150px;
+}
+#theBean img:hover{
+    width: 170px;
+}
+#theBean img:active{
+    width: 150px;
+}

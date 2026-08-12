@@ -110,7 +110,7 @@
       </div>
     </div>
 
-    <div>
+    <div class="desktopApps">
       <div class="app" id="mapIcon">
         <img src="Map.png" alt="">
         <p>Coffee map</p>
@@ -126,6 +126,44 @@
         <div class="welcome map">
           <img src="coffee_loading.gif" alt="">
           <iframe src="https://worldmapofcoffee.com/#10/40.8413/-73.5892" frameborder="0" loading="lazy"></iframe>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="desktopApps">
+      <div class="app" id="clickerIcon">
+        <img src="Clicker.png" alt="">
+        <p>Coffee clicker</p>
+      </div>
+
+      <div id="clicker" class="window">
+        <div id="clickerheader" class="windowheader">
+          <div style="padding-left: 12px;"><p>Coffee clicker</p></div>
+          <div id="clickerClose" class="close">
+            <p>X</p>
+          </div>
+        </div>
+        <div class="welcome" style="width: 600px; flex-direction: column; padding-left: 12px;">
+          <div class="inwelcome" style="flex-direction: row;">
+            <div class="clickerTop" style="text-align: left;"><p id="beans" style="margin-bottom: 10px;">Coffee beans: 100</p></div>
+            <div class="clickerTop" style="text-align: right;"><p id="amountOfClicks" style="margin-bottom: 10px;">Clicks: 0</p></div>
+          </div>
+          <div class="clickerMiddle">
+            <div class="bigbean">
+              <div id="theBean" onclick="coffeeClick()"><img src="coffeeBeans.png" alt="" ></div>
+              <div style="display: flex; flex-direction: column; text-align: center;">
+                <div id="beansPerClick" style="height: 50px; margin-top: 10px;"><p>Beans per click: (1)</p></div>
+                <div id="beansPerSecond" style="height: 50px; margin-bottom: 10px;"><p>Beans per second: <br> (0)</p></div>
+              </div>
+            </div>
+            <div class="upgrades" onmouseenter="upgradeMenu()" onmouseleave="noMenu()">
+              <h2>Upgrades:</h2>
+              <div class="upgrade">
+                <p id="bought1">Multiple fingers at the same time (0)</p>
+              </div>
+            </div>
+          </div>
         </div>
 
       </div>

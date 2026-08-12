@@ -126,8 +126,6 @@ function handleNoteTap(element) {
 
 
 var biggestIndex = 1;
-addWindowTapHandling(welcome);
-addWindowTapHandling(notes);
 function addWindowTapHandling(element) {
   element.addEventListener("mousedown", () =>
     handleWindowTap(element)
@@ -205,6 +203,7 @@ for (let i = 0; i < content.length; i++) {
 
 var beans = 100
 var rolls = 0
+var clicks = 0
 function slotMachinePrize() {
   var a = slotMachine()
   var b = slotMachine()
@@ -241,13 +240,73 @@ function play(){
     beans += prize
   }
   rolls++
-  document.getElementById("beans").innerText = "Coffee beans: " + beans
+  document.querySelectorAll("#beans").forEach(element => {element.innerText = "Coffee beans: " + beans})
   document.getElementById("rolls").innerText = "Rolls: " + rolls
   return beans
 }
+var bpc = 1
+var price1 = 1
+var bought1 = 0
+function cost1(){
+  if (beans<price1){
+    alert('Not enough beans :(')
+    return
+  }
+  beans -= price1
+  bpc +=1
+  bought1 +=1
+  price1 +=2
+  document.getElementById("cost1").innerText = "+1 Beans pre click -> cost: " + price1
+  document.getElementById("bought1").innerText = "Multiple fingers at the same time (" +bought1+")"
+  document.getElementById("beansPerClick").innerText = "Beans per click: ("+bpc+")"
+  document.querySelectorAll("#beans").forEach(element => {element.innerText = "Coffee beans: " + beans})
+  return beans
+}
+function coffeeClick(){
+  beans += bpc
+  clicks += 1
+  document.querySelectorAll("#beans").forEach(element => {element.innerText = "Coffee beans: " + beans})
+  document.getElementById("amountOfClicks").innerText = "Clicks: ("+clicks+")"
+  document.getElementById("beansPerClick").innerText = "Beans per click: ("+bpc+")"
+  return beans
+}
 
+var upgrades = [
+  {
+    content: function(){
+          return`
+            <div id="upgrades">
+              <h2>Upgrades:</h2>
+              <div class="upgrade" onclick="cost1()">
+                <p style="margin:0%;" id="bought1">Multiple fingers at the same time (${bought1})</p>
+                <p style="margin:0%;" id="cost1">+1 Beans pre click -> cost: ${price1}</p>
+              </div>
+            </div>
+    `}
+  },
+  {
+    content: function(){
+          return`
+            <div class="upgrades">
+              <h2>Upgrades:</h2>
+              <div class="upgrade">
+                <p>Multiple fingers at the same time (${bought1})</p>
+              </div>
+            </div>
+    `}
+  }
+]
+function upgradeMenu(){
+  var menu = document.querySelector(".upgrades")
+  menu.innerHTML = upgrades[0].content()
+}
+function noMenu(){
+  var menu = document.querySelector(".upgrades")
+  menu.innerHTML = upgrades[1].content()
+}
 
 initializeWindow("welcome")
 initializeWindow("notes")
 initializeWindow("slotMachine")
 initializeWindow("map")
+initializeWindow("clicker")
