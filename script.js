@@ -167,7 +167,8 @@ var content = [
     date: "07/28/2026",
     content:`
             <p contenteditable="True">
-              You can write your coffee thoughts and mask them as mine
+              I heard that some gnomes have reached infinite coffee beans, then they went to the slot machine and never returned.. 
+              (there might be a secret if you get more than 1,797e308 beans and use the slot machine)
             </p> 
     `
   }
@@ -204,6 +205,14 @@ for (let i = 0; i < content.length; i++) {
 var beans = 100
 var rolls = 0
 var clicks = 0
+function formatNumber(number){
+  if (number<1e15){
+    const formatter = Intl.NumberFormat('en', {notation: 'compact'})
+    return formatter.format(number)
+  }
+  const formatter = Intl.NumberFormat('en', {notation: 'scientific'})
+  return formatter.format(number)
+}
 function slotMachinePrize() {
   var a = slotMachine()
   var b = slotMachine()
@@ -235,39 +244,107 @@ function play(){
     alert('Not enough beans :(')
     return
   }
+  if (beans>=Number.MAX_VALUE){
+    document.getElementById("youBeatIt").style.display="block"
+  }
   beans -=10
   if (prize > 0){
     beans += prize
   }
   rolls++
-  document.querySelectorAll("#beans").forEach(element => {element.innerText = "Coffee beans: " + beans})
+  document.querySelectorAll("#beans").forEach(element => {element.innerText = "Coffee beans: " + formatNumber(beans)})
   document.getElementById("rolls").innerText = "Rolls: " + rolls
   return beans
 }
+
+var x = 1
+var x1 = 1
+var x2 = 1
 var bpc = 1
-var price1 = 1
-var bought1 = 0
-function cost1(){
-  if (beans<price1){
+var bps = 0
+var price1 = 1; var bought1 = 0
+var price2 = 50; var bought2 = 0
+var price3 = 1000; var bought3 = 0
+var price4 = 5000; var bought4 = 0
+var price5 = 1000000; var bought5 = 0
+function cost(upgrade){
+  if (upgrade === 1) {
+    if (beans<price1){
     alert('Not enough beans :(')
     return
+    }
+    beans -= price1
+    bought1 +=1
+    price1 +=2  
   }
-  beans -= price1
-  bpc +=1
-  bought1 +=1
-  price1 +=2
-  document.getElementById("cost1").innerText = "+1 Beans pre click -> cost: " + price1
-  document.getElementById("bought1").innerText = "Multiple fingers at the same time (" +bought1+")"
-  document.getElementById("beansPerClick").innerText = "Beans per click: ("+bpc+")"
-  document.querySelectorAll("#beans").forEach(element => {element.innerText = "Coffee beans: " + beans})
+  if (upgrade === 2){
+    if (beans<price2){
+    alert('Not enough beans :(')
+    return
+    }
+    beans -=price2
+    bought2 +=1
+    price2 += 25
+  }
+  if (upgrade === 3){
+    if (beans<price3){
+    alert('Not enough beans :(')
+    return
+    }
+    beans -=price3
+    x1 *=2
+    bought3 +=1
+    price3 += price3 -100
+  }
+  if (upgrade === 4){
+    if (beans<price4){
+    alert('Not enough beans :(')
+    return
+    }
+    beans -= price4
+    bought4 +=1
+    x2 *=2
+    price4 += price4 -100
+  }
+  if (upgrade === 5){
+    if (beans<price5){
+    alert('Not enough beans :(')
+    return
+    }
+    beans =100
+    x1 = 1
+    x2 = 1
+    price1 = 1; bought1 = 0
+    price2 = 50; bought2 = 0
+    price3 = 1000; bought3 = 0
+    price4 = 5000; bought4 = 0
+    x +=1
+    bought5 +=1
+    price5 *=10
+  }
+  bpc = ((1+bought1)*x1)**x
+  bps = (bought2*5*x2)**x
+  document.getElementById("cost1").innerText = "+1 Beans per click -> cost: " + formatNumber(price1)
+  document.getElementById("bought1").innerText = "Multiple fingers at the same time (" +formatNumber(bought1)+")"
+  document.getElementById("cost2").innerText = "+5 Beans per second -> cost: " + formatNumber(price2)
+  document.getElementById("bought2").innerText = "Coffee garden (" +formatNumber(bought2)+")"
+  document.getElementById("bought3").innerText = "Multiplicative fingers (" +formatNumber(bought3)+")"
+  document.getElementById("cost3").innerText = "Try doubling your fingers: " + formatNumber(price3)
+  document.getElementById("bought4").innerText = "Sparklier soil (" +formatNumber(bought4)+")"
+  document.getElementById("cost4").innerText = "Sparkles make double -> cost: " + formatNumber(price4)
+  document.getElementById("bought5").innerText = "Is that a garden GNOME? (" +formatNumber(bought5)+")"
+  document.getElementById("cost5").innerText = "I heard they know how to make infinite beans.. but at what cost -> cost: " + formatNumber(price5)
+  document.getElementById("beansPerClick").innerText = "Beans per click: ("+formatNumber(bpc)+")"
+  document.querySelectorAll("#beans").forEach(element => {element.innerText = "Coffee beans: " + formatNumber(beans)})
+  document.getElementById("beansPerSecond").innerText = "Beans per second: ("+formatNumber(bps)+")"
   return beans
 }
 function coffeeClick(){
   beans += bpc
   clicks += 1
-  document.querySelectorAll("#beans").forEach(element => {element.innerText = "Coffee beans: " + beans})
-  document.getElementById("amountOfClicks").innerText = "Clicks: ("+clicks+")"
-  document.getElementById("beansPerClick").innerText = "Beans per click: ("+bpc+")"
+  document.querySelectorAll("#beans").forEach(element => {element.innerText = "Coffee beans: " + formatNumber(beans)})
+  document.getElementById("amountOfClicks").innerText = "Clicks: ("+formatNumber(clicks)+")"
+  document.getElementById("beansPerClick").innerText = "Beans per click: ("+formatNumber(bpc)+")"
   return beans
 }
 
@@ -277,9 +354,25 @@ var upgrades = [
           return`
             <div id="upgrades">
               <h2>Upgrades:</h2>
-              <div class="upgrade" onclick="cost1()">
+              <div class="upgrade" onclick="cost(1)">
                 <p style="margin:0%;" id="bought1">Multiple fingers at the same time (${bought1})</p>
-                <p style="margin:0%;" id="cost1">+1 Beans pre click -> cost: ${price1}</p>
+                <p style="margin:0%;" id="cost1">+1 Beans per click -> cost: ${formatNumber(price1)}</p>
+              </div>
+              <div class="upgrade" onclick="cost(2)">
+                <p style="margin:0%;" id="bought2">Coffee garden (${bought2})</p>
+                <p style="margin:0%;" id="cost2">+5 Beans per second -> cost: ${formatNumber(price2)}</p>
+              </div>
+              <div class="upgrade" onclick="cost(3)">
+                <p style="margin:0%;" id="bought3">Multiplicative fingers (${bought3})</p>
+                <p style="margin:0%;" id="cost3">Try doubling your fingers -> cost: ${formatNumber(price3)}</p>
+              </div>
+              <div class="upgrade" onclick="cost(4)">
+                <p style="margin:0%;" id="bought4">Sparklier soil (${bought4})</p>
+                <p style="margin:0%;" id="cost4">Sparkles make double -> cost: ${formatNumber(price4)}</p>
+              </div>
+              <div class="upgrade upgrade5" onclick="cost(5)">
+                <p style="margin:0%;" id="bought5">Is that a garden GNOME? (${bought5})</p>
+                <p style="margin:0%;" id="cost5">I heard they know how to make infinite beans.. but at what cost <br>-> cost: ${formatNumber(price5)}</p>
               </div>
             </div>
     `}
@@ -289,8 +382,12 @@ var upgrades = [
           return`
             <div class="upgrades">
               <h2>Upgrades:</h2>
-              <div class="upgrade">
+              <div>
                 <p>Multiple fingers at the same time (${bought1})</p>
+                <p>Coffee garden (${bought2})</p>
+                <p>Multiplicative fingers (${bought3})</p>
+                <p>Sparklier soil (${bought4})</p>
+                <p>Is that a garden GNOME? (${bought5})</p>
               </div>
             </div>
     `}
@@ -304,7 +401,10 @@ function noMenu(){
   var menu = document.querySelector(".upgrades")
   menu.innerHTML = upgrades[1].content()
 }
-
+setInterval(function() {
+  beans +=bps
+  document.querySelectorAll("#beans").forEach(element => {element.innerText = "Coffee beans: " + formatNumber(beans)})
+}, 1000);
 initializeWindow("welcome")
 initializeWindow("notes")
 initializeWindow("slotMachine")
